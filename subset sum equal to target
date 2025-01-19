@@ -1,0 +1,32 @@
+1.recursion+memoisation
+class Solution {
+public:
+    bool solve(vector<int>& arr, int target, int index, vector<vector<int>>& dp) {
+        // Base cases
+        if (target == 0) return true; // Found a subset
+        if (index >= arr.size() || target < 0) return false; // Out of bounds or target exceeded
+
+        // Check memoization table
+        if (dp[index][target] != -1) return dp[index][target];
+
+        // Two recursive calls: exclude or include the current element
+        bool exclude = solve(arr, target, index + 1, dp);
+        bool include = solve(arr, target - arr[index], index + 1, dp);
+
+        // Store result in dp table
+        return dp[index][target] = exclude || include;
+    }
+
+    bool isSubsetSum(vector<int>& arr, int target) {
+        int n = arr.size();
+        // Initialize dp table with -1 (not computed)
+        vector<vector<int>> dp(n, vector<int>(target + 1, -1));
+        return solve(arr, target, 0, dp);
+    }
+};
+
+
+2.tabulation
+ i didn't understand the tabulation method
+
+
